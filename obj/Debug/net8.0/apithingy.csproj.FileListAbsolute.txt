@@ -23,3 +23,4 @@ C:\Users\lucie\Documents\Intro-HtmlCss\apithingy\obj\Debug\net8.0\refint\apithin
 C:\Users\lucie\Documents\Intro-HtmlCss\apithingy\obj\Debug\net8.0\apithingy.pdb
 C:\Users\lucie\Documents\Intro-HtmlCss\apithingy\obj\Debug\net8.0\apithingy.genruntimeconfig.cache
 C:\Users\lucie\Documents\Intro-HtmlCss\apithingy\obj\Debug\net8.0\ref\apithingy.dll
+C:\Users\lucie\Documents\Intro-HtmlCss\apithingy\obj\Debug\net8.0\apithingy.sourcelink.json
