@@ -1,37 +1,20 @@
-class Movie {
-
-
-    private static int _id = 0;
-    public int Id {get; set;}
-   public string Title {get; set;}
-   
-        
-   public Movie(string title){
-
-    Title = title;
-    Id = _id++;
-   }
-
-
-}
-
-
-
-
 
 internal class Program
 {
+    //en metode som e void betyr at det er en metode som ikke skal retunere en verdi.
     private static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
        //register the list with the dependency injection container
-        builder.Services.AddSingleton<List<Movie>>(); 
+        builder.Services.AddSingleton<IMovieservice, MovieService>(); 
 
         var app = builder.Build();
 
         //get all movies
-        app.MapGet("/movies", (List<Movie> movies) => movies);
+        app.MapGet("/movies", (IMovieservice movieservice) =>{
+            return movieservice.GetAllMovies();
+        } );
 
         //adds a new movie
         app.MapPost("/movies", (Movie movie,List<Movie> movies) => 
