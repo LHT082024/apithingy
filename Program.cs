@@ -17,38 +17,43 @@ internal class Program
         } );
 
         //adds a new movie
-        app.MapPost("/movies", (Movie movie,List<Movie> movies) => 
+        app.MapPost("/movies", (Movie? movie, IMovieservice movieservice) => 
         {
             if (movie == null){
                 return Results.BadRequest();
-            }
-            movies.Add(movie);
-            return Results.Created();
+            } 
+            var createdMovie = movieservice.CreateMovie(movie);
+
+            return Results.Created($"/movies/{createdMovie.Id}", createdMovie); 
+            
         });
 
         //delete a movie with id
-        app.MapDelete("/movies/{Id}", (int Id, List<Movie> movies) => 
+        app.MapDelete("/movies/{Id}", (int Id, IMovieservice movieservice) => 
         {
         
-            var movie = movies.Find((movie) => movie.Id == Id);
-
-            if (movie == null)
-            {
-                return Results.NotFound();
-            }
-
-            movies.Remove(movie);
+          movieservice.DeleteMovieWithId(Id); 
 
             return Results.Ok(); 
 
-        });
+        }); 
 
         //update a movie
-        app.MapPut("/movies/{Id}", (int Id) => $"update movie with id: {Id}");
+        app.MapPut("/movies/{Id}", (int Id, Movie updatedMovie, IMovieservice movieservice)=>
+        {
+            if (updatedMovie == null)
+            {
+                return Results.BadRequest();
+            }
+            var movie = movieservice.UpdateMoiveWithId(Id, updatedMovie); 
 
-        // system status
-        app.MapGet("/health", () => "System healthy");
+            if (movie == null)
+            {
+                return Results.NotFound();   
+            }
 
-        app.Run();
+            return Results.Ok(movie);
+
+        });
     }
 }
