@@ -11,8 +11,6 @@ class Movie {
     Title = title;
     Id = _id++;
    }
-
-
 }
 
 
@@ -44,7 +42,7 @@ class MovieService : IMovieservice
     public Movie CreateMovie (Movie movie)
     {
         movies.Add(movie);
-        
+         
         return movie;
     }
 
